@@ -1,17 +1,14 @@
-def evaluate_polynomial(coefficients, n):
-    result = 0
-    for power, coeff in enumerate(coefficients):
-        result += coeff * (n ** power)
-    return result
+import numpy as np 
 
-def main():
-    # Store the coefficients of the polynomial function f(x) = 4n^2 + 2n + 9 in an array
-    coefficients = [9, 2, 4]  # The coefficients are in the order of n^0, n^1, n^2
+def evaluate_polynomial(coefficients, x):
+    p = np.poly1d(coefficients)
 
-    n = 5  # Given value of n
+    return p(x)
 
-    result = evaluate_polynomial(coefficients, n)
-    print(f"The value of f({n}) is: {result}")
+coefficients = list(map(int, input("Enter the value of coefficeints of the polynomial : ").split()))
+x = int(input("Enter the value of variable: "))
 
-if __name__ == "__main__":
-    main()
+
+result = evaluate_polynomial(coefficients, x)
+
+print(f"The value of the polynomial at x = {x} is {result}.")
