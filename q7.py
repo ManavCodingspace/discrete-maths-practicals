@@ -1,32 +1,36 @@
 class Graph:
-    def __init__(self, num_vertices, adjacency_list):
-        self.num_vertices = num_vertices
-        self.adjacency_list = adjacency_list
-
-    def is_complete_graph(self):
-        for i in range(self.num_vertices):
-            connected_vertices = set(self.adjacency_list[i])
-            connected_vertices.discard(i)  # Remove self-loop if present
-            if len(connected_vertices) != self.num_vertices - 1:
-                return False
+    def __init__(self, vertices):
+        self.vertices = vertices
+        self.adj_matrix = [[0] * vertices for _ in range(vertices)]
+        
+    def add_edge(self, u, v):
+        if graph_type == 1:
+            self.adj_matrix[u][v] = 1
+            self.adj_matrix[v][u] = 1
+        else:
+            self.adj_matrix[u][v] = 1
+            
+    def is_complete(self):
+        for i in range(self.vertices):
+            for j in range(self.vertices):
+                if i != j and self.adj_matrix[i][j] == 0:
+                    return False
         return True
-
-def main():
-    # Example adjacency list representing a graph
-    adjacency_list = {
-        0: [1, 2, 3],
-        1: [0, 2, 3],
-        2: [0, 1, 3],
-        3: [0, 1, 2]
-    }
-    num_vertices = 4  # Number of vertices in the graph
-
-    graph = Graph(num_vertices, adjacency_list)
-
-    if graph.is_complete_graph():
-        print("The given graph is a complete graph.")
-    else:
-        print("The given graph is not a complete graph.")
+    
+    def get_matrix(self):
+        return self.adj_matrix
 
 if __name__ == "__main__":
-    main()
+    graph_type = int(input("Enter Your Graph Type(1.Undirected 2.Directed):: "))
+    num_vertices = int(input("Enter number of vertices:: "))
+    g = Graph(num_vertices)
+    num = int(input("Enter number of edges:: "))
+    for i in range(num):
+        a = int(input(f"Enter first vertice of {i+1} edge:: ")) - 1
+        b = int(input(f"Enter second vertice of same edge:: ")) - 1
+        g.add_edge(a, b)
+    print(g.get_matrix())
+    if g.is_complete():
+        print("The graph is a complete graph.")
+    else:
+        print("The graph is not a complete graph.")
